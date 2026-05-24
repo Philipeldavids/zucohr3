@@ -1,7 +1,7 @@
 // ZucoHR API Service Layer
 // Replace BASE_URL with your actual backend API URL
 //const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://localhost:44318/api";
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://zucohr.onrender.com//api";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://zucohr.onrender.com/api";
 
 
 export async function request<T>(
