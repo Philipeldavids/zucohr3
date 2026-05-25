@@ -126,10 +126,10 @@ const [applyOpen, setApplyOpen] =
             </div>
 
             <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-              Build the future of
+              Build the future 
               <span className="text-primary">
                 {" "}
-                HR Technology
+                With Us
               </span>
             </h1>
 

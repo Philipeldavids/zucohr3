@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import {formatMoney} from "../../lib/currency"
 import {
   employeeService,
   leaveService,
@@ -334,7 +335,7 @@ console.log("Payrolls:", payrollRes);
 
     {
       label: "Monthly Payroll",
-      value: `$${monthlyPayroll.toLocaleString()}`,
+      value: `${formatMoney(monthlyPayroll)}`,
       change: "Current payroll",
       up: true,
       icon: DollarSign,
@@ -771,7 +772,7 @@ console.log("Payrolls:", payrollRes);
               </p>
 
               <p className="text-xs text-muted-foreground">
-                ${monthlyPayroll.toLocaleString()} estimated
+                {formatMoney(monthlyPayroll)} estimated
               </p>
             </div>
           </CardContent>

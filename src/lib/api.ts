@@ -297,7 +297,7 @@ export const expenseService = {
 export const recruitmentService = {
   downloadCv: async (candidateId: string) => {
   const response = await fetch(
-    `/recruitment/applicants/${candidateId}/cv`,
+    `${BASE_URL}/recruitment/applicants/${candidateId}/cv`,
     {
       method: "GET",
       headers: {
