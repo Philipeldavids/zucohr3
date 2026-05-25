@@ -35,6 +35,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { motion } from "motion/react";
+import { Download } from "lucide-react";
 import JobPostDialog from "./_components/job-post-dialog.tsx";
 import CandidateDetailSheet from "./_components/candidate-detail-sheet.tsx";
 import { toast } from "sonner";
@@ -94,6 +95,7 @@ const [loading, setLoading] = useState(false);
   const departments = Array.from(new Set(jobs.map((j) => j.department)));
 
 
+  
   async function loadRecruitmentData() {
   try {
     setLoading(true);
@@ -588,6 +590,41 @@ if (loading) {
                             >
                               <Eye className="h-3 w-3" />
                             </Button>
+                            <Button
+  variant="ghost"
+  size="icon"
+  className="h-6 w-6 cursor-pointer"
+  title="Download CV"
+  onClick={async (e) => {
+  e.stopPropagation();
+
+  try {
+    const blob =
+      await recruitmentService.downloadCv(
+        candidate.id
+      );
+
+    const url =
+      window.URL.createObjectURL(blob);
+
+    window.open(url, "_blank");
+
+    // OR force download:
+    // const link = document.createElement("a");
+    // link.href = url;
+    // link.download = `${candidate.fullName}-CV`;
+    // link.click();
+
+  } catch (err) {
+    console.error(err);
+
+    toast.error("Failed to download CV");
+  }
+
+  }}
+>
+  <Download className="h-3 w-3" />
+</Button>
                           </div>
                         </CardContent>
                       </Card>

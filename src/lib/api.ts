@@ -295,6 +295,23 @@ export const expenseService = {
 
 // ─── Recruitment Service ──────────────────────────────────────────────────────
 export const recruitmentService = {
+  downloadCv: async (candidateId: string) => {
+  const response = await fetch(
+    `/recruitment/applicants/${candidateId}/cv`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to download CV");
+  }
+
+  return await response.blob();
+},
   jobs: () =>
     request<PaginatedResponse<Job>>("/recruitment/jobs"),
 
