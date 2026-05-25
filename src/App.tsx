@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 //import { useServiceWorker } from "@/hooks/use-service-worker.ts";
 import { DefaultProviders } from "./components/providers/default";
-//import AuthCallback from "./pages/auth/Callback.tsx";
 import NotFound from "./pages/NotFound";
 import AppLayout from "./components/app-layout";
 import Dashboard from "./pages/dashboard/page.tsx";
@@ -19,7 +18,6 @@ import Signup from "./pages/auth/signup";
 import UsersPage from "./pages/users/page";
 import CareersPage from "./pages/careers/page.tsx";
 import JobDetailsPage from "./pages/careers/job-details-page.tsx";
-//import AssignRoleModal from "./pages/roles/AssignRoleModal.tsx";
 import CreateRolePage from "./pages/roles/page"
 import EmployeeAttendanceDashboard from "./pages//attendance/employee-dashboard.tsx";
 import HRAttendanceDashboard from "./pages/attendance/hr-dashboard.tsx";
@@ -31,7 +29,7 @@ export default function App() {
     <>
           <BrowserRouter>
         <Routes>
-          {/* <Route path="/auth/callback" element={<AuthCallback />} /> */}
+          
           <Route path="/" element={<AuthGate />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} /> 
