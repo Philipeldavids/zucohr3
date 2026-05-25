@@ -17,9 +17,7 @@ import {
   Briefcase,
   Calendar,
   DollarSign,
-  TrendingUp,
-  CalendarDays,
-  Receipt,
+  
 } from "lucide-react";
 
 const statusColor: Record<string, string> = {
