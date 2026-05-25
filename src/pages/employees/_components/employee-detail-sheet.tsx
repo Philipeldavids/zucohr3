@@ -47,7 +47,11 @@ function InfoRow({ icon: Icon, label, value }: { icon: React.ElementType; label:
   );
 }
 
-
+// const mockStats = [
+//   { icon: CalendarDays, label: "Leave Days Used", value: "12 / 25 days" },
+//   { icon: TrendingUp, label: "Performance Score", value: "4.2 / 5.0" },
+//   { icon: Receipt, label: "Expenses (YTD)", value: "$1,240" },
+// ];
 
 export default function EmployeeDetailSheet({ employee, onClose }: Props) {
   if (!employee) return null;
@@ -111,8 +115,8 @@ console.log(employee);
         {/* Quick stats */}
         <div className="space-y-3">
           <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Quick Stats</h4>
-          {/* <div className="grid grid-cols-1 gap-2">
-            {mockStats.map(({ icon: Icon, label, value }) => (
+          <div className="grid grid-cols-1 gap-2">
+            {/* {mockStats.map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-2.5">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Icon size={13} />
@@ -120,8 +124,8 @@ console.log(employee);
                 </div>
                 <span className="text-sm font-semibold text-foreground">{value}</span>
               </div>
-            ))}
-          </div> */}
+            ))} */}
+          </div>
         </div>
       </SheetContent>
     </Sheet>
