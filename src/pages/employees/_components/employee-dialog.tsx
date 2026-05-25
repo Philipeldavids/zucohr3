@@ -236,7 +236,7 @@ const onSubmit = async (values: FormValues) => {
             <div className="grid grid-cols-2 gap-4">
               <FormField control={form.control} name="basicSalary" render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Annual Salary (USD)</FormLabel>
+                  <FormLabel>Annual Salary (NGN)</FormLabel>
                  <FormControl>
 <Input
  type="text"
@@ -269,7 +269,7 @@ const onSubmit = async (values: FormValues) => {
             <div className="grid grid-cols-2 gap-4">
               <FormField control={form.control} name="allowance" render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Allowances (USD)</FormLabel>
+                  <FormLabel>Allowances (NGN)</FormLabel>
                  <FormControl>
   <Input
   type="text"

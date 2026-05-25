@@ -1,4 +1,5 @@
 import type { Employee } from "../../../lib/api.ts";
+import { formatMoney } from "../../../lib/currency";
 import {
   Sheet,
   SheetContent,
@@ -46,11 +47,7 @@ function InfoRow({ icon: Icon, label, value }: { icon: React.ElementType; label:
   );
 }
 
-const mockStats = [
-  { icon: CalendarDays, label: "Leave Days Used", value: "12 / 25 days" },
-  { icon: TrendingUp, label: "Performance Score", value: "4.2 / 5.0" },
-  { icon: Receipt, label: "Expenses (YTD)", value: "$1,240" },
-];
+
 
 export default function EmployeeDetailSheet({ employee, onClose }: Props) {
   if (!employee) return null;
@@ -106,7 +103,7 @@ console.log(employee);
           <InfoRow icon={Building2} label="Department" value={employee.department} />
           <InfoRow icon={Briefcase} label="Position" value={employee.position} />
           <InfoRow icon={Calendar} label="Start Date" value={new Date(employee.startDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} />
-          <InfoRow icon={DollarSign} label="Annual Salary" value={`$${employee.basicSalary?.toLocaleString?.()}`} />
+          <InfoRow icon={DollarSign} label="Annual Salary" value={`${formatMoney(employee.basicSalary)}`} />
         </div>
 
         <Separator className="my-4" />
@@ -114,7 +111,7 @@ console.log(employee);
         {/* Quick stats */}
         <div className="space-y-3">
           <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Quick Stats</h4>
-          <div className="grid grid-cols-1 gap-2">
+          {/* <div className="grid grid-cols-1 gap-2">
             {mockStats.map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-2.5">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -124,7 +121,7 @@ console.log(employee);
                 <span className="text-sm font-semibold text-foreground">{value}</span>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </SheetContent>
     </Sheet>
