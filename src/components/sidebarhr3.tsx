@@ -1,12 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { useEffect } from 'react';
 import { cn } from "../lib/utils";
+import { useEffect } from 'react';
 import {
-  LayoutDashboard,  
-  CalendarDays,  
+  LayoutDashboard,
+  Users,
+  CalendarDays,
+  CreditCard,
   TrendingUp,
+  Receipt,
   Briefcase,
-  Receipt,  
   ClipboardList,
   Settings, 
   ChevronLeft,
@@ -14,42 +16,44 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { Avatar, AvatarFallback } from "../components/ui/avatar";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 
 import Image from '../assets/1777297540099.png';
 
 const navItems = [
- { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
-  { label: "Leave", icon: CalendarDays, href: "/leave" },
-  { label: "Attendance", icon: ClipboardList, href: "/e-attendance"},
+  { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
+  { label: "Employees", icon: Users, href: "/employees" },
+  { label: "Leave", icon: CalendarDays, href: "/leave"},
+  { label: "Attendance", icon: ClipboardList, href: "/hr-attendance"},
+  { label: "Payroll", icon: CreditCard, href: "/payroll" },
   { label: "Performance", icon: TrendingUp, href: "/performance" },
-  { label: "Expenses", icon: Receipt, href: "/expenses" },
-   { label: "Recruitment", icon: Briefcase, href: "/recruitment" },
-  
-  
+  { label: "Expenses", icon: Receipt, href: "/expenses"},
+  { label: "Recruitment", icon: Briefcase, href: "/recruitment" },
+  { label: "Onboarding", icon: ClipboardList, href: "/onboarding" },
+  { label: "Users", icon: Users, href: "/users" },
+  { label: "Roles", icon: ClipboardList, href: "/roles" }
 ];
 
-export default function Sidebar2() {
+export default function Sidebar() {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
- const [user, setUser] = useState("");
-   const [email, setEmail] = useState("");
-   const [company, setCompany] = useState("");
- 
-   useEffect(() => {
-       const foundUser = JSON.parse(localStorage.getItem("user") || "{}");
-       const compny = JSON.parse(localStorage.getItem("org") || "{}")
-       if(foundUser){
-         setUser(foundUser?.name);
-         setEmail(foundUser?.email);
- 
-       }
-       if(compny){
-         setCompany(compny?.name);
-       }
- 
-   },[])
- 
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+
+  useEffect(() => {
+      const foundUser = JSON.parse(localStorage.getItem("user") || "{}");
+      const compny = JSON.parse(localStorage.getItem("org") || "{}")
+      if(foundUser){
+        setUser(foundUser?.name);
+        setEmail(foundUser?.email);
+
+      }
+      if(compny){
+        setCompany(compny?.name);
+      }
+
+  },[])
 
   return (
     <aside
@@ -138,6 +142,7 @@ export default function Sidebar2() {
             // </Button>
           )} */}
         </div>
+        
       </div>
 
       {/* Collapse toggle */}

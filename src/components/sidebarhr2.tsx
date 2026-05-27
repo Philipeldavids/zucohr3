@@ -1,8 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "../lib/utils";
 import { useEffect } from 'react';
-import { subscriptionService } from "../lib/api";
-import SubscriptionWarning from "../pages/subscription/subscription-warning";
 import {
   LayoutDashboard,
   Users,
@@ -18,7 +16,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { Avatar, AvatarFallback } from "../components/ui/avatar";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 
 import Image from '../assets/1777297540099.png';
 
