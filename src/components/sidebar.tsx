@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "../lib/utils";
 import { useEffect } from 'react';
+import { subscriptionService } from "../lib/api";
+import SubscriptionWarning from "../pages/subscription/subscription-warning";
 import {
   LayoutDashboard,
   Users,
@@ -29,7 +31,7 @@ const navItems = [
   { label: "Performance", icon: TrendingUp, href: "/performance" },
   { label: "Expenses", icon: Receipt, href: "/expenses"},
   { label: "Recruitment", icon: Briefcase, href: "/recruitment" },
-  { label: "Onboarding", icon: ClipboardList, href: "/onboarding" },
+  //{ label: "Onboarding", icon: ClipboardList, href: "/onboarding" },
   { label: "Users", icon: Users, href: "/users" },
   { label: "Roles", icon: ClipboardList, href: "/roles" }
 ];
@@ -142,6 +144,7 @@ export default function Sidebar() {
             // </Button>
           )} */}
         </div>
+        
       </div>
 
       {/* Collapse toggle */}

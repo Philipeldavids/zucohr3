@@ -3,12 +3,33 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useState, useEffect} from "react";
 import { getConnection } from "../lib/signalr";
-import {notificationService, type Notification} from "../lib/api";
+import SubscriptionWarning from "../pages/subscription/subscription-warning";
+import {notificationService, subscriptionService, type Notification} from "../lib/api";
 
 export default function TopBar({ title }: { title: string }) {
   const [dark, setDark] = useState(false);
 const [notifications, setNotifications] = useState<Notification[]>([]);
   const [open, setOpen] = useState(false);
+  const [subscriptionActive,
+    setSubscriptionActive] =
+    useState(true);
+  
+  useEffect(() => {
+    async function checkSubscription() {
+      try {
+        const res =
+          await subscriptionService.status();
+  
+        setSubscriptionActive(
+          res.active
+        );
+      } catch {
+        setSubscriptionActive(false);
+      }
+    }
+  
+    checkSubscription();
+  }, []);
 
   useEffect(() => {
     load();
@@ -118,6 +139,10 @@ if (connection.state === "Disconnected") {
           </Badge> */}
         
       </div>
+      <SubscriptionWarning
+  open={!subscriptionActive}
+/>
     </header>
+   
   );
 }

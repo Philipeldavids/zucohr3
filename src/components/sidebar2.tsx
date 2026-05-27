@@ -4,7 +4,6 @@ import { cn } from "../lib/utils";
 import {
   LayoutDashboard,  
   CalendarDays,  
-  TrendingUp,
   Receipt,  
   ClipboardList,
   Settings, 
@@ -21,7 +20,7 @@ const navItems = [
  { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
   { label: "Leave", icon: CalendarDays, href: "/leave" },
   { label: "Attendance", icon: ClipboardList, href: "/e-attendance"},
-  { label: "Performance", icon: TrendingUp, href: "/performance" },
+  //{ label: "Performance", icon: TrendingUp, href: "/performance" },
   { label: "Expenses", icon: Receipt, href: "/expenses" },
   
   

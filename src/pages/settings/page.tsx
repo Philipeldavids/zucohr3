@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { authService } from "../../lib/api";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
@@ -23,6 +23,14 @@ import {
   ChevronRight,
   DollarSign,
 } from "lucide-react";
+import { Input } from "../../components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "../../components/ui/dialog";
 
 import { toast } from "sonner";
 
@@ -95,6 +103,18 @@ export default function SettingsPage() {
     language: "English (UK)",
     notifications: defaultNotifications,
   });
+  const [passwordOpen, setPasswordOpen] =
+  useState(false);
+
+const [passwordData, setPasswordData] =
+  useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+const [changingPassword, setChangingPassword] =
+  useState(false);
 
   useEffect(() => {
     const foundUser = JSON.parse(localStorage.getItem("user") || "{}");
@@ -127,7 +147,62 @@ export default function SettingsPage() {
       applyAppearance(parsed.appearance);
     }
   };
+const handleChangePassword = async () => {
+  try {
+    if (
+      !passwordData.currentPassword ||
+      !passwordData.newPassword ||
+      !passwordData.confirmPassword
+    ) {
+      toast.error("All fields are required");
+      return;
+    }
 
+    if (
+      passwordData.newPassword !==
+      passwordData.confirmPassword
+    ) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    if (
+      passwordData.newPassword.length < 6
+    ) {
+      toast.error(
+        "Password must be at least 6 characters"
+      );
+      return;
+    }
+
+    setChangingPassword(true);
+
+    await authService.changePassword(
+      passwordData
+    );
+
+    toast.success(
+      "Password changed successfully"
+    );
+
+    setPasswordOpen(false);
+
+    setPasswordData({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+  } catch (err: any) {
+    console.error(err);
+
+    toast.error(
+      err?.message ||
+        "Failed to change password"
+    );
+  } finally {
+    setChangingPassword(false);
+  }
+};
   const saveSettings = (updated: UserSettings) => {
     localStorage.setItem("settings", JSON.stringify(updated));
     setSettings(updated);
@@ -501,13 +576,13 @@ export default function SettingsPage() {
         </CardHeader>
 
         <CardContent className="space-y-3">
-          <Button
-            variant="secondary"
-            className="w-full justify-start"
-            onClick={() => toast.info("Coming soon")}
-          >
-            Change Password
-          </Button>
+         <Button
+  variant="secondary"
+  className="w-full justify-start"
+  onClick={() => setPasswordOpen(true)}
+>
+  Change Password
+</Button>
 
           <Button
             variant="secondary"
@@ -547,6 +622,88 @@ export default function SettingsPage() {
           </Button>
         </CardContent>
       </Card>
+      <Dialog
+  open={passwordOpen}
+  onOpenChange={setPasswordOpen}
+>
+  <DialogContent className="sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle>
+        Change Password
+      </DialogTitle>
+
+      <DialogDescription>
+        Update your account password.
+      </DialogDescription>
+    </DialogHeader>
+
+    <div className="space-y-4 mt-4">
+      <div className="space-y-2">
+        <label className="text-sm font-medium">
+          Current Password
+        </label>
+
+        <Input
+          type="password"
+          value={passwordData.currentPassword}
+          onChange={(e) =>
+            setPasswordData({
+              ...passwordData,
+              currentPassword:
+                e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">
+          New Password
+        </label>
+
+        <Input
+          type="password"
+          value={passwordData.newPassword}
+          onChange={(e) =>
+            setPasswordData({
+              ...passwordData,
+              newPassword:
+                e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">
+          Confirm Password
+        </label>
+
+        <Input
+          type="password"
+          value={passwordData.confirmPassword}
+          onChange={(e) =>
+            setPasswordData({
+              ...passwordData,
+              confirmPassword:
+                e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <Button
+        className="w-full"
+        onClick={handleChangePassword}
+        disabled={changingPassword}
+      >
+        {changingPassword
+          ? "Updating..."
+          : "Update Password"}
+      </Button>
+    </div>
+  </DialogContent>
+</Dialog>
     </div>
   );
 }

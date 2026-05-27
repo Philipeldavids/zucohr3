@@ -115,9 +115,71 @@ export const userService = {
    get: (id: string) =>
     request<User>(`/users/${id}`),
 }
+//-----Paystack Service----------------------------------------
 
+export const paystackService =
+{initializePayment: (data: {
+  organizationId: string;
+  planId: number;
+  email: string;
+}) =>
+  request<any>(
+    "/paystack/initialize",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  )
+}
+//-----Subscription Service--------------------------------------------
+export interface CreateSubscriptionDto {
+  organizationId: string;
+  planId: number;
+  startDate: string;
+  endDate: string;
+}
+export interface PayStackInitialize{
+  authorizationUrl: string;
+  //reference : string;
+  subscriptionId: number;
+
+}
+export const subscriptionService = {
+  getAll: () =>
+    request<Subscriptions>("/subscriptions"),
+
+   getActive: () =>
+    request<Subscriptions>("/subscriptions/active"),
+
+ status: () =>
+  request<{
+    active: boolean;
+    plan?: string;
+    endDate?: string;
+  }>("/subscriptions/status"),
+
+  create: (data: CreateSubscriptionDto) =>
+    request<PayStackInitialize>("/subscriptions", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  cancel: (id: string) =>
+    request<Subscriptions>(`/subscriptions/${id}/cancel`, {
+      method: "PUT",
+    }),
+};
 // ─── Auth Service ────────────────────────────────────────────────────────────
 export const authService = {
+  changePassword: (data: {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}) =>
+  request("/auth/change-password", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }),
   login: (email: string, password: string) =>
     request<{ accessToken: string; refreshToken: string; user: User; organization: Organization }>("/auth/login", {
       method: "POST",
@@ -615,6 +677,19 @@ export type Expense = {
   submittedAt: string;
 };
 
+export type Subscriptions = {
+  id: string;
+  organizationName: string;
+  organizationId: string;
+  price: number;
+  planId: number;
+  planName: string;
+  startDate: string;
+  endDate: string;
+  paymentConfirmed: boolean;
+  isActive:boolean;
+  status: string;
+}
 
 export type Job = {
   id: string;

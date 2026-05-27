@@ -21,6 +21,8 @@ import JobDetailsPage from "./pages/careers/job-details-page.tsx";
 import CreateRolePage from "./pages/roles/page"
 import EmployeeAttendanceDashboard from "./pages//attendance/employee-dashboard.tsx";
 import HRAttendanceDashboard from "./pages/attendance/hr-dashboard.tsx";
+import SubscriptionSettings from "./pages/subscription/subscriptionsettings.tsx";
+import PaymentSuccess from "./pages/payment-success";
 
 export default function App() {
   //useServiceWorker();
@@ -34,9 +36,14 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} /> 
           <Route path="/careers/:companySlug" element={<CareersPage />} />
-          <Route path="/careers/:companySlug/:slug" element={<JobDetailsPage />} />        
+          <Route path="/careers/:companySlug/:slug" element={<JobDetailsPage />} />
+          <Route path ="/settings/subscription"element={<SubscriptionSettings/>}/>
+                  <Route
+  path="/payment-success"
+  element={<PaymentSuccess />}
+/>
           <Route element={<AppLayout />}>  
-          <Route path="/users" element={<UsersPage/>} /> 
+           <Route path="/users" element={<UsersPage/>} /> 
           <Route path="/roles" element={<CreateRolePage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/employees" element={<EmployeesPage />} />
