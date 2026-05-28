@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import SidebarHr1 from "./sidebarhr2";
+import SidebarHr1 from "./sidebarhr1";
 import SidebarHr2 from "./sidebarhr2";
 import SideBarHr3 from "./sidebarhr3";
 import SideBar2 from "./sidebar2";
