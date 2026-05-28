@@ -6,8 +6,8 @@ import SideBar2 from "./sidebar2";
 import Sidebar1 from "./sidebar1";
 import {useEffect, useState} from 'react';
 import TopBar from "./top-bar";
-import BottomNav from "./bottom-nav";
 import { type Subscriptions, subscriptionService } from "../lib/api";
+
 
 
 const pageTitles: Record<string, string> = {
@@ -58,25 +58,25 @@ return(
           <Outlet />
         </main>
       </div>
-      <BottomNav />
+      
     </div>
-        )
+        );
       }
               
-        else if(role == "Employee" && sub?.planName == "Growth"){
-           return(
-      <div className="flex h-screen overflow-hidden bg-background">
-      <SideBar2 />
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <TopBar title={title} />
-        <main className="flex-1 overflow-y-auto p-6 pb-20 md:pb-6">
-          <Outlet />
-        </main>
-      </div>
-      <BottomNav />
-    </div>
-        )
-        }
+    //     else if(role == "Employee" && sub?.planName == "Growth"){
+    //        return(
+    //   <div className="flex h-screen overflow-hidden bg-background">
+    //   <SideBar2 />
+    //   <div className="flex flex-col flex-1 overflow-hidden">
+    //     <TopBar title={title} />
+    //     <main className="flex-1 overflow-y-auto p-6 pb-20 md:pb-6">
+    //       <Outlet />
+    //     </main>
+    //   </div>
+    //   <BottomNav />
+    // </div>
+    //     )
+    //    }
        
         else if((role == "Admin" || role =="HR" || role == "HR Manager") && sub?.planName == "Starter"){
           return (
@@ -88,7 +88,7 @@ return(
           <Outlet />
         </main>
       </div>
-      <BottomNav />
+   
     </div>
   );
         }
@@ -102,11 +102,11 @@ return(
           <Outlet />
         </main>
       </div>
-      <BottomNav />
+      
     </div>
   );
         } 
-        else{
+        else if((role == "Admin" || role =="HR" || role == "HR Manager") && sub?.planName == "Enterprise") {
           return (
     <div className="flex h-screen overflow-hidden bg-background">
       <SideBarHr3 />
@@ -116,7 +116,22 @@ return(
           <Outlet />
         </main>
       </div>
-      <BottomNav />
+     
+    </div>
+  );
+
+        }
+        else{
+          return (
+    <div className="flex h-screen overflow-hidden bg-background">
+      <SideBar2 />
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <TopBar title={title} />
+        <main className="flex-1 overflow-y-auto p-6 pb-20 md:pb-6">
+          <Outlet />
+        </main>
+      </div>
+      
     </div>
   );
         }

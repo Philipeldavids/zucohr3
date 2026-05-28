@@ -43,7 +43,7 @@ const schema = z.object({
   allowance: z.coerce.number().nonnegative(),
   annualRent: z.coerce.number().nonnegative(),
   status: z.enum(["active", "inactive", "on_leave"]),
-  employmentType :z.enum(["fullTime", "contract", "intern"]),
+  employmentType :z.enum(["fullTime", "contract", "intern", "partTime"]),
   startDate: z.string().refine(val => !isNaN(Date.parse(val)), {
   message: "Invalid date",
 })
@@ -318,7 +318,7 @@ const onSubmit = async (values: FormValues) => {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="fullTime">Full-Time</SelectItem>
-                      <SelectItem value="remote">Remote</SelectItem>
+                      <SelectItem value="partTime">Part-Time</SelectItem>
                       <SelectItem value="contract">Contract</SelectItem>
                       <SelectItem value="intern">Intern</SelectItem>
                     </SelectContent>
