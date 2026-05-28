@@ -53,8 +53,7 @@ export default function CreateSubscriptionDialog({
 
     const paymentUrl =     
       response?.authorizationUrl;
-
-      onSuccess();
+            onSuccess();
     if (!paymentUrl) {
       toast.error(
         "Unable to initialize payment"

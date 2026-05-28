@@ -140,10 +140,14 @@ export interface CreateSubscriptionDto {
 }
 export interface PayStackInitialize{
   authorizationUrl: string;
-  //reference : string;
+  reference : string;
   subscriptionId: number;
 
 }
+export interface PaymentResponseDto{
+  reference: string
+}
+
 export const subscriptionService = {
   getAll: () =>
     request<Subscriptions>("/subscriptions"),
@@ -151,6 +155,15 @@ export const subscriptionService = {
    getActive: () =>
     request<Subscriptions>("/subscriptions/active"),
 
+   verify: (reference: string) => 
+    
+   request("/paystack/verify-payment", {
+      method: "POST",
+       body: JSON.stringify({
+      reference,
+    })
+    }),
+   
  status: () =>
   request<{
     active: boolean;
