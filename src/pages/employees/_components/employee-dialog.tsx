@@ -318,6 +318,7 @@ const onSubmit = async (values: FormValues) => {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="fullTime">Full-Time</SelectItem>
+                      <SelectItem value="remote">Remote</SelectItem>
                       <SelectItem value="contract">Contract</SelectItem>
                       <SelectItem value="intern">Intern</SelectItem>
                     </SelectContent>

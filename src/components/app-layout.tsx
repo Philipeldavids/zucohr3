@@ -78,7 +78,7 @@ return(
         )
         }
        
-        else if(role == "Admin" || role =="HR" || role == "HR Manager" && sub?.planName == "Starter"){
+        else if((role == "Admin" || role =="HR" || role == "HR Manager") && sub?.planName == "Starter"){
           return (
     <div className="flex h-screen overflow-hidden bg-background">
       <SidebarHr1 />
@@ -92,7 +92,7 @@ return(
     </div>
   );
         }
-         else if(role == "Admin" || role =="HR" || role == "HR Manager" && sub?.planName == "Growth"){
+         else if((role == "Admin" || role =="HR" || role == "HR Manager") && sub?.planName == "Growth"){
          return (
     <div className="flex h-screen overflow-hidden bg-background">
       <SidebarHr2 />
