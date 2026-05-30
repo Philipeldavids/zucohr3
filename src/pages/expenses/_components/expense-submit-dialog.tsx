@@ -425,7 +425,7 @@ export default function ExpenseSubmitDialog({
       <FormControl>
         <Input
           type="file"
-          accept=".jpg,.jpeg,.png,.pdf"
+          accept=".jpg,.jpeg,.png"
           onChange={(e) =>
             field.onChange(
               e.target.files?.[0]
@@ -435,7 +435,7 @@ export default function ExpenseSubmitDialog({
       </FormControl>
 
       <p className="text-[11px] text-muted-foreground mt-1">
-        Upload JPG, PNG, or PDF
+        Upload JPG or PNG
       </p>
 
       <FormMessage />

@@ -1,5 +1,6 @@
 import type { Expense } from "../../../lib/api.ts";
 import { formatMoney } from "../../../lib/currency";
+import { Button } from "../../../components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -14,6 +15,7 @@ import {
   Calendar,
   DollarSign,
   FileText,
+  ExternalLink,
   Clock,
 } from "lucide-react";
 
@@ -122,16 +124,51 @@ export default function ExpenseDetailSheet({ expense, onClose }: { expense: Expe
 
         {/* Receipt placeholder */}
         <Separator className="my-4" />
-        <div className="space-y-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Receipt</h4>
-          <div className="rounded-lg border border-dashed border-border p-4 flex items-center gap-3 text-muted-foreground">
-            <FileText size={20} />
-            <div>
-              <p className="text-sm font-medium">No receipt attached</p>
-              <p className="text-xs">Connect to your file storage API</p>
-            </div>
-          </div>
+
+<div className="space-y-2">
+  <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+    Receipt
+  </h4>
+
+  {expense.receiptUrl ? (
+    <div className="rounded-lg border p-4 flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <FileText size={20} />
+        <div>
+          <p className="text-sm font-medium">
+            Receipt Attached
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Click to view receipt
+          </p>
         </div>
+      </div>
+
+      <Button
+        size="sm"
+        variant="outline"
+        onClick={() =>
+          window.open(
+            expense.receiptUrl,
+            "_blank"
+          )
+        }
+      >
+        <ExternalLink className="h-4 w-4 mr-1" />
+        View
+      </Button>
+    </div>
+  ) : (
+    <div className="rounded-lg border border-dashed border-border p-4 flex items-center gap-3 text-muted-foreground">
+      <FileText size={20} />
+      <div>
+        <p className="text-sm font-medium">
+          No receipt attached
+        </p>
+      </div>
+    </div>
+  )}
+</div>
       </SheetContent>
     </Sheet>
   );
