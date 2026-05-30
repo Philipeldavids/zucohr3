@@ -135,9 +135,9 @@ const testimonials = [
 
 const pricingPlans = [
   {
-    name: "Starter",
-    price: "$4",
-    per: "per employee / month",
+    name: "Starter", 
+    price:  "₦20,000",
+    per: "per month",
     desc: "Perfect for small teams getting started.",
     features: ["Up to 50 employees", "Employee profiles", "Leave management", "Basic payroll", "Email support"],
     cta: "Start free trial",
@@ -145,8 +145,8 @@ const pricingPlans = [
   },
   {
     name: "Growth",
-    price: "$9",
-    per: "per employee / month",
+    price: "₦50,000",
+    per: "per month",
     desc: "Everything you need to scale HR operations.",
     features: ["Unlimited employees", "All Starter features", "Performance reviews", "Expense management", "Recruitment pipeline", "Priority support"],
     cta: "Start free trial",
@@ -364,7 +364,7 @@ function LandingPage() {
             transition={{ delay: 0.6, duration: 0.5 }}
             className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
           >
-            {["No credit card required", "Free 14-day trial", "Cancel anytime"].map((t) => (
+            {["No credit card required", "Free Demo", "Cancel anytime"].map((t) => (
               <span key={t} className="flex items-center gap-1.5">
                 <CheckCircle className="h-3.5 w-3.5 text-primary" />
                 {t}
@@ -739,7 +739,8 @@ function LandingPage() {
             />
             <p className="text-sm text-muted-foreground max-w-xs">
               The all-in-one HR platform built for modern, fast-moving teams.
-            </p>
+            </p><br/>
+            <p>Mail: hello@zucohr.com</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
             <div>
