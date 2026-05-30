@@ -112,6 +112,17 @@ export const userService = {
     request<PaginatedResponse<User>>(
       `/users?${new URLSearchParams(params).toString()}`,
     ),
+    resetPassword: (
+  userId: string,
+  newPassword: string
+) =>
+  request("/users/reset-password", {
+    method: "POST",
+    body: JSON.stringify({
+      userId,
+      newPassword,
+    }),
+  }),
    get: (id: string) =>
     request<User>(`/users/${id}`),
 }

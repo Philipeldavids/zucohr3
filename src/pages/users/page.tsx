@@ -2,12 +2,72 @@ import { useEffect, useState } from "react";
 import {userService, roleService, type User, type Role}from "../../lib/api";
 import AssignRoleModal from "../roles/AssignRoleModal";
 import { toast } from 'sonner';
+import {
+  Dialog,
+  DialogContent,
+} from "../../components/ui/dialog";
 
+function ResetPasswordModal({
+  user,
+  onClose,
+}: any) {
+  const [password, setPassword] =
+    useState("");
+
+  const handleSubmit = async () => {
+    try {
+      await userService.resetPassword(
+        user.id,
+        password
+      );
+
+      toast.success(
+        "Password reset successfully"
+      );
+
+      onClose();
+    } catch {
+      toast.error(
+        "Failed to reset password"
+      );
+    }
+  };
+
+  return (
+    <Dialog open={true} onOpenChange={onClose}>
+  <DialogContent>
+    <div className="p-6">
+      <h2 className="font-semibold mb-4">
+        Reset Password
+      </h2>
+
+      <input
+        type="password"
+        value={password}
+        onChange={(e) =>
+          setPassword(e.target.value)
+        }
+        placeholder="New Password"
+        className="border rounded p-2 w-full"
+      />
+
+      <button
+        onClick={handleSubmit}
+        className="mt-4 bg-purple-600 text-white px-4 py-2 rounded"
+      >
+        Reset Password
+      </button>
+    </div>
+     </DialogContent>
+</Dialog>
+  );
+}
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [roles, setRoles] = useState<Role[]>([]);
   const [selectedUser, setSelectedUser] = useState<User>();
   const [open, setOpen] = useState(false);
+  const [resetOpen, setResetOpen] = useState(false);
 
   useEffect(() => {
     fetchUsers();
@@ -25,6 +85,7 @@ export default function UsersPage() {
     console.log(res.data);
     setRoles(res.data);
   };
+  
 const handleRemoveRole = async (userId: string, roleId: string) => {
   try {
     await roleService.removeRole(userId, roleId);
@@ -110,6 +171,7 @@ const handleToggleStatus = async (userId: string, isActive: boolean) => {
             
 
                 <td>
+                  <div className="flex gap-3">
                   <button 
                    onClick={() => {
                     setSelectedUser(u);
@@ -118,6 +180,16 @@ const handleToggleStatus = async (userId: string, isActive: boolean) => {
                   className="text-purple-600 hover:underline text-sm">
                     Manage
                   </button>
+                  <button
+  onClick={() => {
+    setSelectedUser(u);
+    setResetOpen(true);
+  }}
+  className="text-blue-600 hover:underline text-sm"
+>
+  Reset Password
+</button>
+</div>
                 </td>
               </tr>
             ))}
@@ -131,8 +203,17 @@ const handleToggleStatus = async (userId: string, isActive: boolean) => {
           onClose={() => setOpen(false)}
         />
       )}
-
+ {resetOpen && selectedUser && (
+  <ResetPasswordModal
+    user={selectedUser}
+    onClose={() => {
+      setResetOpen(false);
+      setSelectedUser(undefined);
+    }}
+  />
+)}
       </div>
+     
     </div>
   );
 }
