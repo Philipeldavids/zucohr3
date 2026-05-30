@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
 } from "../../components/ui/dialog";
 
 function ResetPasswordModal({
@@ -36,6 +37,7 @@ function ResetPasswordModal({
   return (
     <Dialog open={true} onOpenChange={onClose}>
   <DialogContent>
+    <DialogTitle>Reset Password</DialogTitle>
     <div className="p-6">
       <h2 className="font-semibold mb-4">
         Reset Password
