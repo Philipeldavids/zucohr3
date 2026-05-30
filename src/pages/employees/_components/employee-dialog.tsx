@@ -113,7 +113,22 @@ export default function EmployeeDialog({ open, onOpenChange, employee }: Props) 
     }
   }, [employee, form, open]);
 
+   const loadEmployees = async () => {
+      try {
+       
   
+        await employeeService.list({
+          page: "1",
+          pageSize: "50",
+        });
+  
+      
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  
+   
 
 const onSubmit = async (values: FormValues) => {
   try {
@@ -131,10 +146,12 @@ const onSubmit = async (values: FormValues) => {
       await employeeService.update(employee.id, payload);
 
       toast.success("Employee updated successfully");
+      loadEmployees();
     } else {
       await employeeService.create(payload);
 
       toast.success("Employee added successfully");
+      loadEmployees();
     }
 
     onOpenChange(false);
