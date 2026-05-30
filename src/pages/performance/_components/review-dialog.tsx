@@ -124,11 +124,21 @@ function StarPicker({
 }
 
 const periods = [
-  "Q1 2024",
-  "Q2 2024",
-  "Q3 2024",
-  "Q4 2024",
-  "Annual 2024",
+  "Q1 2026",
+  "Q2 2026",
+  "Q3 2026",
+  "Q4 2026",
+  "Annual 2026",
+  "Q1 2027",
+  "Q2 2027",
+  "Q3 2027",
+  "Q4 2027",
+  "Annual 2027",
+  "Q1 2028",
+  "Q2 2028",
+  "Q3 2028",
+  "Q4 2028",
+  "Annual 2028",
 ];
 
 export default function ReviewDialog({
@@ -153,7 +163,7 @@ export default function ReviewDialog({
 
     defaultValues: {
       employeeId: "",
-      reviewPeriod: "Q1 2024",
+      reviewPeriod: "Q1 2026",
       score: 3,
       summary: "",
       status: "draft",
@@ -224,7 +234,7 @@ export default function ReviewDialog({
     } else {
       form.reset({
         employeeId: "",
-        reviewPeriod: "Q1 2024",
+        reviewPeriod: "Q1 2026",
         score: 3,
         summary: "",
         status: "draft",
