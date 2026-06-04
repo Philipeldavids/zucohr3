@@ -219,27 +219,27 @@ const exportPayrollCsv = async () => {
 
     if (payrollData.length > 0) {
       const sorted = [...payrollData].sort(
-        (a, b) => {
-          const aDate = new Date(
-            Number(a.payRun?.year || a.year),
-            MONTHS.indexOf(
-              a.payRun?.month || a.month
-            )
-          );
+  (a, b) => {
+    const aDate = new Date(
+      Number(a.payRun?.year || a.year),
+      MONTHS.indexOf(
+        a.payRun?.month || a.month
+      )
+    );
 
-          const bDate = new Date(
-            Number(b.payRun?.year || b.year),
-            MONTHS.indexOf(
-              b.payRun?.month || b.month
-            )
-          );
+    const bDate = new Date(
+      Number(b.payRun?.year || b.year),
+      MONTHS.indexOf(
+        b.payRun?.month || b.month
+      )
+    );
 
-          return (
-            bDate.getTime() -
-            aDate.getTime()
-          );
-        }
-      );
+    return (
+      bDate.getTime() -
+      aDate.getTime()
+    );
+  }
+);
 
       const latest = sorted[0];
 

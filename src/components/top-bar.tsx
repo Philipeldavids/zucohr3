@@ -40,15 +40,32 @@ const [notifications, setNotifications] = useState<Notification[]>([]);
 
 if (connection.state === "Disconnected") {
   await connection.start();
+  console.log(
+  "SignalR State:",
+  connection.state
+);
 }
 
-      const user = JSON.parse(localStorage.getItem("user") || ""); // store after login
+      const userData =
+  localStorage.getItem("user");
 
+if (!userData) return;
+
+const user =
+  JSON.parse(userData); // store after login
+      console.log(user);
       // join group
       await connection.invoke("JoinUserGroup", user.id);
-
+      console.log(
+  "Joining group:",
+  user.id
+);
       // listen for new notifications
       connection.on("ReceiveNotification", (notif) => {
+    console.log(
+      "Notification received",
+      notif
+    );
         setNotifications((prev) => [notif, ...prev]);
       });
     };
@@ -63,7 +80,7 @@ if (connection.state === "Disconnected") {
 
   const load = async () => {
     const res = await notificationService.list();
-    console.log(res);
+   console.log("Notifications:", res);
     setNotifications(res);
   };
 

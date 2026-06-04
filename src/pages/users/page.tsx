@@ -70,18 +70,48 @@ export default function UsersPage() {
   const [selectedUser, setSelectedUser] = useState<User>();
   const [open, setOpen] = useState(false);
   const [resetOpen, setResetOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] =
+  useState(false);
 
   useEffect(() => {
     fetchUsers();
     fetchRoles();
   }, []);
 
+  const currentUser = JSON.parse(
+  localStorage.getItem("user") || "{}"
+);
 
   const fetchUsers = async () => {
     const res = await userService.list();
     setUsers(res.data);
   };
 
+  const handleDeleteUser = async (
+  userId: string
+) => {
+  try {
+    await userService.delete(userId);
+
+    toast.success(
+      "User deleted successfully"
+    );
+
+    setUsers((prev) =>
+      prev.filter((u) => u.id !== userId)
+    );
+
+    setDeleteOpen(false);
+    setSelectedUser(undefined);
+  } catch (err: any) {
+    console.error(err);
+
+    toast.error(
+      err?.response?.data?.message ||
+        "Failed to delete user"
+    );
+  }
+};
   const fetchRoles = async () => {
     const res = await roleService.list();
     console.log(res.data);
@@ -191,6 +221,17 @@ const handleToggleStatus = async (userId: string, isActive: boolean) => {
 >
   Reset Password
 </button>
+{u.id !== currentUser.id && (
+  <button
+    onClick={() => {
+      setSelectedUser(u);
+      setDeleteOpen(true);
+    }}
+    className="text-red-600 hover:underline text-sm"
+  >
+    Delete
+  </button>
+)}
 </div>
                 </td>
               </tr>
@@ -213,6 +254,59 @@ const handleToggleStatus = async (userId: string, isActive: boolean) => {
       setSelectedUser(undefined);
     }}
   />
+)}
+{deleteOpen && selectedUser && (
+  <Dialog
+    open={true}
+    onOpenChange={() =>
+      setDeleteOpen(false)
+    }
+  >
+    <DialogContent>
+      <DialogTitle>
+        Delete User
+      </DialogTitle>
+
+      <div className="space-y-4">
+        <p>
+          Are you sure you want to
+          delete
+          <strong>
+            {" "}
+            {selectedUser.email}
+          </strong>
+          ?
+        </p>
+
+        <p className="text-sm text-red-500">
+          This action cannot be
+          undone.
+        </p>
+
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={() =>
+              setDeleteOpen(false)
+            }
+            className="px-4 py-2 border rounded"
+          >
+            Cancel
+          </button>
+
+          <button
+            onClick={() =>
+              handleDeleteUser(
+                selectedUser.id
+              )
+            }
+            className="px-4 py-2 bg-red-600 text-white rounded"
+          >
+            Delete User
+          </button>
+        </div>
+      </div>
+    </DialogContent>
+  </Dialog>
 )}
       </div>
      
