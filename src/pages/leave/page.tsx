@@ -112,7 +112,7 @@ const leavePolicy = {
 };
 
 const currentEmployeeId =
-  localStorage.getItem("employeeId");
+  JSON.parse(localStorage.getItem("user") || "{}")?.employeeId;
 
 /*
   Only approved leaves

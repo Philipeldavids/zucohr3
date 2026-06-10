@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/ca
 import { Badge } from "../../components/ui/badge";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
+import { formatMoney } from "../../lib/currency.ts";
 import ApplyJobDialog from "./_components/apply-job-dialog.tsx";
 import {
   Select,
@@ -411,7 +412,7 @@ if (loading) {
                       <div className="flex items-center gap-1.5">
                         <DollarSign className="h-3.5 w-3.5 shrink-0" />
                         <span>
-                          ${job.salaryMin.toLocaleString()} – ${job.salaryMax?.toLocaleString() ?? "—"}
+                          {formatMoney(job.salaryMin)} – {formatMoney(job.salaryMax!) ?? "—"}
                         </span>
                       </div>
                     )}
