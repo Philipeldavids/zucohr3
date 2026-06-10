@@ -366,7 +366,7 @@ export default function PayslipSheet({
                   </div>
 
                   <span className="font-bold font-display text-black">
-                    ZucoHR Inc.
+                    {name}
                   </span>
                 </div>
 
