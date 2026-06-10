@@ -813,25 +813,25 @@ const handleProcessPayroll = async (
                 </th>
 
                 <th className="text-right px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide hidden sm:table-cell">
-                  Basic
+                  Basic(Annual)
                 </th>
 
                 <th className="text-right px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide hidden md:table-cell">
                   <span className="flex items-center justify-end gap-1">
                     <Plus size={10} />
-                    Allowances
+                    Allowances(Annual)
                   </span>
                 </th>
 
                 <th className="text-right px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide hidden md:table-cell">
                   <span className="flex items-center justify-end gap-1">
                     <Minus size={10} />
-                    Deductions
+                    Deductions(Monthly)
                   </span>
                 </th>
 
                 <th className="text-right px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                  Net Pay
+                  Net Pay(Monthly)
                 </th>
 
                 <th className="text-left px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide hidden lg:table-cell">

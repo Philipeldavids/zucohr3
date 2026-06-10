@@ -1,5 +1,5 @@
 import type { Payroll } from "../../../lib/api";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { formatMoney } from "../../../lib/currency";
@@ -74,6 +74,9 @@ export default function PayslipSheet({
   payroll: Payroll | null;
   onClose: () => void;
 }) {
+
+  const [name, setName] = useState("");
+
   if (!payroll) return null;
 
   const payslipRef =
@@ -87,6 +90,16 @@ export default function PayslipSheet({
       payroll.allowances || 0
     );
 
+    useEffect(()=>{
+      fetchOrg();
+})
+    
+    const fetchOrg =() =>{
+      var orgName= JSON.parse(localStorage.getItem("org") || "{}")?.Name;
+      if(orgName){
+        setName(orgName);
+      }
+    }
   const downloadPayslip = async () => {
   if (!payslipRef.current) return;
 
