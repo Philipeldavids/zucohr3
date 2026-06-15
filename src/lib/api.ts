@@ -58,6 +58,17 @@ export async function request<T>(
 
   return res.json() as Promise<T>;
 }
+
+
+//----------EmailService----------------------------------------------
+
+export const emailService = {
+  bookDemo: (data: BookDemoDto) =>
+    request("/email/book-demo", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+};
 //--------NotificationService..................................................
 
 export const notificationService ={
@@ -516,6 +527,17 @@ export type User = {
   permissions: string[];
 };
 
+export interface BookDemoDto {
+  fullName: string;
+  email: string;
+  phone: string;
+  company: string;
+  employees: string;
+  preferredDate: string;
+  preferredTime: string;
+  country: string;
+  message?: string;
+}
 export type Organization={
   id: string;
   name: string;

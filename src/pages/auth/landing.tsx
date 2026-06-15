@@ -136,7 +136,7 @@ const testimonials = [
 const pricingPlans = [
   {
     name: "Starter", 
-    price:  "₦20,000",
+    price:  "₦350,000",
     per: "per month",
     desc: "Perfect for small teams getting started.",
     features: ["Up to 50 employees", "Employee profiles", "Leave management", "Basic payroll", "Email support"],
@@ -145,7 +145,7 @@ const pricingPlans = [
   },
   {
     name: "Growth",
-    price: "₦50,000",
+    price: "₦500,000",
     per: "per month",
     desc: "Everything you need to scale HR operations.",
     features: ["Unlimited employees", "All Starter features", "Performance reviews", "Expense management", "Recruitment pipeline", "Priority support"],
