@@ -229,9 +229,9 @@ function LandingPage() {
               </button>
             </a>
 
-            <a href="/signup">
+            <a href="/book-demo">
               <button className="border border-[#5f25d5] text-[#5f25d5] px-4 py-2 rounded-md hover:bg-[#5f25d5]/5 transition cursor-pointer">
-                Sign Up
+                Book Demo
               </button>
             </a>
           </div>
