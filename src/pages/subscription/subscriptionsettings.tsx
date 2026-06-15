@@ -138,7 +138,7 @@ export default function SubscriptionSettings() {
                       </h3>
 
                       <p className="text-sm text-muted-foreground">
-                        ₦20,000/month
+                        ₦350,000/month
                       </p>
                     </div>
 
@@ -161,7 +161,7 @@ export default function SubscriptionSettings() {
                       </h3>
 
                       <p className="text-sm text-muted-foreground">
-                        ₦50,000/month
+                        ₦500,000/month
                       </p>
                     </div>
 
