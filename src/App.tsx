@@ -23,6 +23,7 @@ import EmployeeAttendanceDashboard from "./pages//attendance/employee-dashboard.
 import HRAttendanceDashboard from "./pages/attendance/hr-dashboard.tsx";
 import SubscriptionSettings from "./pages/subscription/subscriptionsettings.tsx";
 import PaymentSuccess from "./pages/payment-success";
+import BookDemoPage from "./pages/auth/BookDemo.tsx";
 
 export default function App() {
   //useServiceWorker();
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/" element={<AuthGate />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} /> 
+          <Route path="/book-demo" element={<BookDemoPage/>} />
           <Route path="/careers/:companySlug" element={<CareersPage />} />
           <Route path="/careers/:companySlug/:slug" element={<JobDetailsPage />} />
           <Route path ="/settings/subscription"element={<SubscriptionSettings/>}/>
