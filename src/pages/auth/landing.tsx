@@ -137,7 +137,7 @@ const pricingPlans = [
   {
     name: "Starter", 
     price:  "₦350,000",
-    per: "per month",
+    per: "per year",
     desc: "Perfect for small teams getting started.",
     features: ["Up to 50 employees", "Employee profiles", "Leave management", "Basic payroll", "Email support"],
     cta: "Start free trial",
@@ -146,7 +146,7 @@ const pricingPlans = [
   {
     name: "Growth",
     price: "₦500,000",
-    per: "per month",
+    per: "per year",
     desc: "Everything you need to scale HR operations.",
     features: ["Unlimited employees", "All Starter features", "Performance reviews", "Expense management", "Recruitment pipeline", "Priority support"],
     cta: "Start free trial",
