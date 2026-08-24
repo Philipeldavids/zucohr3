@@ -1,64 +1,72 @@
 // ZucoHR API Service Layer
 // Replace BASE_URL with your actual backend API URL
-//const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://localhost:44318/api";
-const BASE_URL = "https://zucohr.onrender.com/api";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://localhost:44318/api";
+//const BASE_URL = "https://zucohr.onrender.com/api";
 
 
 export async function request<T>(
   path: string,
-  options?: RequestInit
+  options: RequestInit = {}
 ): Promise<T> {
   const token = localStorage.getItem("token");
 
   // Detect FormData
-  const isFormData =
-    options?.body instanceof FormData;
+  const isFormData = options.body instanceof FormData;
 
-  const res = await fetch(
-    `${BASE_URL}${path}`,
-    {
-      ...options,
+  const res = await fetch(`${BASE_URL}${path}`, {
+    ...options,
 
-      headers: {
-        ...(token
-          ? {
-              Authorization: `Bearer ${token}`,
-            }
-          : {}),
+    headers: {
+      ...(token
+        ? {
+            Authorization: `Bearer ${token}`,
+          }
+        : {}),
 
-        // ONLY set JSON content type when NOT FormData
-        ...(!isFormData
-          ? {
-              "Content-Type":
-                "application/json",
-            }
-          : {}),
+      // Do NOT set Content-Type for FormData.
+      // The browser will set the correct multipart boundary.
+      ...(!isFormData
+        ? {
+            "Content-Type": "application/json",
+          }
+        : {}),
 
-        ...options?.headers,
-      },
+      ...options.headers,
+    },
+  });
+
+  // Read the response once.
+  // This allows us to safely handle both JSON and empty responses.
+  const text = await res.text();
+
+  let data: any = null;
+
+  if (text.trim()) {
+    try {
+      data = JSON.parse(text);
+    } catch {
+      // Response wasn't JSON.
+      data = text;
     }
-  );
+  }
 
+  // Handle HTTP errors
   if (!res.ok) {
-    const error = await res
-      .json()
-      .catch(() => ({
-        message: "Request failed",
-      }));
-
     throw new Error(
-      error.message ?? "Request failed"
+      data?.message ||
+        data?.error ||
+        (typeof data === "string" ? data : null) ||
+        `Request failed with status ${res.status}`
     );
   }
 
-  // Handle empty responses (204 No Content)
-  if (res.status === 204) {
-    return {} as T;
+  // Successful request with no response body.
+  if (!text.trim()) {
+    return true as T;
   }
 
-  return res.json() as Promise<T>;
+  return data as T;
 }
-
 
 //----------EmailService----------------------------------------------
 
@@ -123,10 +131,11 @@ export const userService = {
     request<PaginatedResponse<User>>(
       `/users?${new URLSearchParams(params).toString()}`,
     ),
-    delete: (id: string) =>
-  request(`/users/${id}`, {
+  delete: async (id: string): Promise<boolean> => {
+  return request<boolean>(`/users/${id}`, {
     method: "DELETE",
-  }),
+  });
+},
     resetPassword: (
   userId: string,
   newPassword: string
@@ -178,9 +187,27 @@ export const subscriptionService = {
   getAll: () =>
     request<Subscriptions>("/subscriptions"),
 
-   getActive: () =>
-    request<Subscriptions>("/subscriptions/active"),
+    getActive: async () => {
+    return request<Subscriptions>("/subscription/active");
+  },
 
+  // cancel: async (subscriptionId: number) => {
+  //   return request<boolean>(
+  //     `/subscription/${subscriptionId}/cancel`,
+  //     {
+  //       method: "POST",
+  //     }
+  //   );
+  // },
+
+  activateFreeTrial: async () => {
+    return request<Subscriptions>(
+      "/subscriptions/free-trial",
+      {
+        method: "POST",
+      }
+    );
+  },
    verify: (reference: string) => 
     
    request("/paystack/verify-payment", {

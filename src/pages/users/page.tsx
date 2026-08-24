@@ -91,9 +91,9 @@ export default function UsersPage() {
   userId: string
 ) => {
   try {
-    await userService.delete(userId);
-
-    toast.success(
+    if(await userService.delete(userId))
+   {
+     toast.success(
       "User deleted successfully"
     );
 
@@ -103,11 +103,13 @@ export default function UsersPage() {
 
     setDeleteOpen(false);
     setSelectedUser(undefined);
+   } 
+   
   } catch (err: any) {
     console.error(err);
 
     toast.error(
-      err?.response?.data?.message ||
+      err?.message ||
         "Failed to delete user"
     );
   }

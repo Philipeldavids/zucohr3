@@ -92,7 +92,7 @@ return(
     </div>
   );
         }
-         else if((role == "Admin" || role =="HR" || role == "HR Manager") && sub?.planName == "Growth"){
+         else if((role == "Admin" || role =="HR" || role == "HR Manager") && sub?.planName == "Growth" || "1 Month Free"){
          return (
     <div className="flex h-screen overflow-hidden bg-background">
       <SidebarHr2 />

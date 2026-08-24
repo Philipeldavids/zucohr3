@@ -40,6 +40,27 @@ export default function SubscriptionSettings() {
     loadSubscription();
   }, []);
 
+
+  async function handleFreeTrial() {
+  try {
+    const result =
+      await subscriptionService.activateFreeTrial();
+
+    setSubscription(result);
+
+    toast.success(
+      "Your 1-month free subscription has been activated!"
+    );
+
+  } catch (err: any) {
+    console.error(err);
+
+    toast.error(
+      err?.message ||
+      "Unable to activate free subscription"
+    );
+  }
+}
   async function handleCancel() {
     
     if (!subscription?.id) {
@@ -128,8 +149,27 @@ export default function SubscriptionSettings() {
               <p>No active subscription</p>
 
               {/* Example plans */}
-              <div className="grid gap-3 md:grid-cols-3">
+              <div className="grid gap-3 md:grid-cols-4">
+<Card className="border-primary">
+  <CardContent className="p-4 space-y-3">
+    <div>
+      <h3 className="font-semibold">
+        1 Month Free
+      </h3>
 
+      <p className="text-sm text-muted-foreground">
+        Full access for 30 days
+      </p>
+    </div>
+
+    <Button
+      className="w-full"
+      onClick={handleFreeTrial}
+    >
+      Start Free
+    </Button>
+  </CardContent>
+</Card>
                 <Card className="border">
                   <CardContent className="p-4 space-y-3">
                     <div>
