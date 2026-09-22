@@ -228,7 +228,11 @@ function LandingPage() {
                 Login
               </button>
             </a>
-
+            <a href="/signup">
+              <button className="bg-[#5f25d5] text-white px-4 py-2 rounded-md hover:opacity-90 transition cursor-pointer">
+                Signup
+              </button>
+            </a>
             <a href="/book-demo">
               <button className="border border-[#5f25d5] text-[#5f25d5] px-4 py-2 rounded-md hover:bg-[#5f25d5]/5 transition cursor-pointer">
                 Book Demo
